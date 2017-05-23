@@ -7,6 +7,8 @@ services:
         image: logstash:5.3.1
         volumes:
             - "${HOST_PATH}:/opt/"
+        link:
+            - elastic
 
     kibana-ui:
         image: kibana:5.3.1
