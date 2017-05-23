@@ -1,0 +1,22 @@
+version: '3'
+services:
+    elastic:
+        image: elasticsearch:5.3.1
+
+    logstash:
+        image: logstash:5.3.1
+        volumes:
+            - "${HOST_PATH}:/opt/"
+
+    kibana-ui:
+        image: kibana:5.3.1
+        depends_on: 
+            - elastic
+            - logstash
+        ports: 
+            - "${EXTERNAL_PORT}:5601"
+        links:
+            - elastic
+
+
+
