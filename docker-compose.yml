@@ -1,24 +1,38 @@
 version: '3'
 services:
-    elastic:
-        image: elasticsearch:5.3.1
+    elasticsearch:
+        image: elasticsearch:5.4.0-alpine
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        networks:
+            - elk
+        environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
 
     logstash:
-        image: logstash:5.3.1
+        build: ./images/logstash/
+        depends_on:
+            - elasticsearch 
         volumes:
             - "${HOST_PATH}:/opt/"
-        link:
-            - elastic
+            - "${PWD}/images/logstash/pipeline/:/usr/share/logstash/pipeline/"
+            - "${PWD}/images/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml"
+        environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+        networks:
+            - elk
 
     kibana-ui:
-        image: kibana:5.3.1
+        image: kibana:latest
         depends_on: 
-            - elastic
-            - logstash
+            - elasticsearch
         ports: 
-            - "${EXTERNAL_PORT}:5601"
-        links:
-            - elastic
+            - "80:5601"
+            - "8080:5601"
+        networks:
+            - elk
 
-
-
+networks:
+  elk:
+    driver: bridge

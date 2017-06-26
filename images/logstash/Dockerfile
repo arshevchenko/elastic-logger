@@ -1,8 +1,9 @@
-FROM logstash:5.3.1
+FROM logstash:5.4.0-alpine
 
 WORKDIR /opt
+RUN apk add --no-cache curl
 
-ADD entrypoint.sh ./
-RUN chmod +x entrypoint.sh
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
