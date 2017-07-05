@@ -38,7 +38,7 @@ filter {
             "message" => "%{log_message}"
         }
 
-        remove_field => [ "timest", "log_message", "@version"]
+        remove_field => [ "times", "log_message", "@version"]
     }
 }
 
