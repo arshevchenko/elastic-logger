@@ -16,6 +16,7 @@ This script will automatically search free port for KIBANA. Ports are in range f
     Kibana will exposed at PORT_NUMBER
 
 **Manually:**
+
 If you want to launch manually, you must export this variables:
 
     export HOST_PATH="./path/to/logs/"
