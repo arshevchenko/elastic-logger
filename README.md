@@ -10,7 +10,7 @@ Usage
 
 **Manually:**
 
-If you want to launch manually:
+If you want to launch manually, set port and path to logs where PORT and PATH_LOGS:
 
     docker build -t elk_integral .
     docker run -d -p PORT:5601 \ 
