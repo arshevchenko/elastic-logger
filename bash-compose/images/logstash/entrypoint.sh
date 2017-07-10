@@ -24,8 +24,9 @@ for DATACENTER in $(ls -l | grep "^d" | awk '{print $9}'); do
                 source /scripts/storm-errors.sh $DATACENTER $NODE
                 source /scripts/storm-worker.sh $DATACENTER $NODE
             fi
-
+            cd ..
         done
+        cd ..
     done
 
     cd /opt/
