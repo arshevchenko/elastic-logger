@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker stop int_elasticsearch int_logstash int_kibana-ui
-docker rm int_elasticsearch int_logstash int_kibana-ui
+docker stop lasticsearch logstash kibana-ui
+docker rm elasticsearch logstash kibana-ui
