@@ -27,5 +27,5 @@ done
 
 docker run -d --name=kibana-ui \
            -p $KIBANA_PORT:5601   \
-           -link elacticseasrch \
+           -link elacticsearch \
               kibana:5.4.3 
