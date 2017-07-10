@@ -1,23 +1,25 @@
 #!/bin/sh
+set -x
 
 while [[ $(curl -s elasticsearch:9200/_cat/health | grep -qE "(green|yellow)"; echo $?) != 0 ]];
 do
  sleep 1
 done
 
-for DATACENTER in $(ls); do
+for DATACENTER in $(ls -l | grep "^d" | awk '{print $9}'); do
     cd $DATACENTER/timestamped
+    for timestamp in $(ls -l | grep "^d" | awk '{print $9}'); do
+        cd $timestamp
+        for NODE in $(ls -l | grep "^d" | awk '{print $9}'); do
+            cd $NODE
 
-    for timestamp in $(ls); do
-        for NODE in $(ls); do
-            cd $timestamp/$NODE
-
-            if [[ -d "kafka" ]]
+            if test -d "kafka" ;
             then
                 source /scripts/kafka.sh $DATACENTER $NODE
             fi
+    
 
-            if [[ -d "storm" ]]
+            if test -d "storm" ;
             then
                 source /scripts/storm-errors.sh $DATACENTER $NODE
                 source /scripts/storm-worker.sh $DATACENTER $NODE

@@ -55,4 +55,3 @@ output {
 EOF
 
 logstash -f /usr/share/logstash/pipeline/storm-errors-$1-$2.conf < storm/worker-errors.log 
-

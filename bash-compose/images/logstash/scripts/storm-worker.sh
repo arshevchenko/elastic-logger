@@ -1,4 +1,5 @@
 #!/bin/sh
+
 for worker in $(ls storm | grep "worker-[0-9]"); do
     PORT=${worker:7:4}
     cat > /usr/share/logstash/pipeline/storm-worker-$1-$2-$PORT.conf << EOF
@@ -57,5 +58,3 @@ EOF
 
 logstash -f /usr/share/logstash/pipeline/storm-worker-$1-$2-$PORT.conf < storm/$worker 
 done
-
-cd ..

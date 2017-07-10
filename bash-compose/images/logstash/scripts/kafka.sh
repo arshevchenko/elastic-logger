@@ -57,4 +57,3 @@ output {
 EOF
 
 logstash -f /usr/share/logstash/pipeline/kafka-$1-$2.conf < kafka/opt/server.log 
-
