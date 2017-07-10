@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker stop lasticsearch logstash kibana-ui
+docker stop elasticsearch logstash kibana-ui
 docker rm elasticsearch logstash kibana-ui
