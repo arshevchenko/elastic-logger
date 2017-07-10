@@ -12,7 +12,7 @@ docker run -d --name=logstash      \
            -v images/logstash/pipeline/:/usr/share/logstash/pipeline/ \
            -v images/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
-           -links elasticsearch            \
+           -link elasticsearch            \
               log_elk
 
 
@@ -27,5 +27,5 @@ done
 
 docker run -d --name=kibana-ui \
            -p $KIBANA_PORT:5601   \
-           -links elacticseasrch \
+           -link elacticseasrch \
               kibana:5.4.3 
