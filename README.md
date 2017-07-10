@@ -8,14 +8,19 @@ Usage
 **Automatically:**
 
 
-**Manually:**
+Run **./run.sh** file with argument equal to your path to logs directory like this:
 
-If you want to launch manually, set port and path to logs where PORT and PATH_LOGS:
+    ./run.sh ./logs
+    
+This script will automatically search free port for KIBANA. Ports are in range from 8080 to 8090. If port found, in terminal will displays message like this:
 
-    docker build -t elk_integral .
-    docker run -d -p PORT:5601 \ 
-                  -v PATH_LOGS:/opt/logs/ \
-                  -v /var/run/docker.sock:/var/run/docker.sock \
-                     elk_integral
-                 
+    Kibana will exposed at PORT_NUMBER
+
+For stopping and removing containers use:
+    
+    ./stop.sh
+
+For restarting containers use:
+
+    ./restart.sh
 
