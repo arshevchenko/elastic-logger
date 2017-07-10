@@ -12,7 +12,7 @@ docker run -d --name=logstash      \
            -v images/logstash/pipeline/:/usr/share/logstash/pipeline/ \
            -v images/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
-           -link elasticsearch            \
+           --link elasticsearch            \
               log_elk
 
 
@@ -21,11 +21,12 @@ for port in $(seq 8081 8090); do
     then
         echo "Kibana will exposed at $port"
         KIBANA_PORT=$port
+    break
     fi
 done
    
 
 docker run -d --name=kibana-ui \
            -p $KIBANA_PORT:5601   \
-           -link elacticsearch \
+           --link elacticsearch \
               kibana:5.4.3 
