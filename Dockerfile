@@ -11,7 +11,6 @@ VOLUME /opt/logs
 EXPOSE 5601
 
 COPY ./compose/ ./
-COPY ./entrypoint.sh ./
-RUN chmod +x entrypoint.sh
+RUN chmod +x -R .
  
 ENTRYPOINT [ "docker-compose", "up" ]
