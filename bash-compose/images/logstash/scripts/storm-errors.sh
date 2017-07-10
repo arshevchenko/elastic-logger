@@ -1,5 +1,6 @@
 #!/bin/sh
-
+if test -f "storm/worker-errors.log";
+then
 cat > /usr/share/logstash/pipeline/storm-errors-$1-$2.conf << EOF
 
 input {
@@ -55,3 +56,4 @@ output {
 EOF
 
 logstash -f /usr/share/logstash/pipeline/storm-errors-$1-$2.conf < storm/worker-errors.log 
+fi

@@ -8,12 +8,14 @@ done
 
 for DATACENTER in $(ls -l | grep "^d" | awk '{print $9}'); do
     cd $DATACENTER/timestamped
+    
     for timestamp in $(ls -l | grep "^d" | awk '{print $9}'); do
         cd $timestamp
+        
         for NODE in $(ls -l | grep "^d" | awk '{print $9}'); do
             cd $NODE
-
-            if test -d "kafka" ;
+            
+            if test -f "kafka/opt/server.log"; 
             then
                 source /scripts/kafka.sh $DATACENTER $NODE
             fi
@@ -24,10 +26,12 @@ for DATACENTER in $(ls -l | grep "^d" | awk '{print $9}'); do
                 source /scripts/storm-errors.sh $DATACENTER $NODE
                 source /scripts/storm-worker.sh $DATACENTER $NODE
             fi
+
             cd ..
         done
+
         cd ..
     done
 
-    cd /opt/
+    cd /opt
 done
