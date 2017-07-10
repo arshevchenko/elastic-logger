@@ -9,8 +9,8 @@ docker run -d --name=elasticsearch \
 docker build -t log_elk ./images/logstash/
 docker run -d --name=logstash      \
            -v $1:/opt/ \
-           -v images/logstash/pipeline/:/usr/share/logstash/pipeline/ \
-           -v images/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml \
+           -v $PWD/images/logstash/pipeline/:/usr/share/logstash/pipeline/ \
+           -v $PWD/images/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
            --link elasticsearch            \
               log_elk
