@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker restart elasticsearch logstash kibana-ui
+docker restart int_elasticsearch int_logstash int_kibana-ui

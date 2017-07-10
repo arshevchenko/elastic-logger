@@ -6,7 +6,7 @@ This docker-compose solution intended for log collection on specific project.
 Usage
 -----
 **Automatically:**
-
+All of this script in **./bash-compose** directory
 
 Run **./run.sh** file with argument equal to your path to logs directory like this:
 
@@ -24,3 +24,6 @@ For restarting containers use:
 
     ./restart.sh
 
+For for viewing container state:
+
+    ./ps.sh
