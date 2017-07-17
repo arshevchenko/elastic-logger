@@ -1,0 +1,53 @@
+input {
+    stdin {}
+}
+
+filter {
+  
+    multiline {
+        pattern => "{{ log_stacktrace }}"
+        negate => "true"
+        what => "previous"
+    }
+
+    grok {
+        match => {
+            "message" => "{{ grok_pattern }}"
+        }
+    }
+
+    date {
+        match => [ "times", "{{ time_pattern }}"]
+        target => "@timestamp"
+    }
+
+    mutate {
+      {% if add_fields %}
+        add_field => {
+        {% for field in add_fields %}
+            "{{ field.key }}" => "{{ field.value }}"
+        {% endfor %}
+      }
+      {% endif %}
+
+        replace => {
+        {% for field in replace_fields %}
+            "{{ field.key }}" => "{{ field.value }}"
+        {% endfor %}
+            "message" => "%{log_message}"
+        }
+
+        remove_field => [ "times", "log_message", "@version" ]
+    }
+}
+
+output {
+    stdout {
+        codec => "rubydebug"
+    }
+
+    elasticsearch {
+        hosts => "elasticsearch:9200"
+        index => "{{ log_type }}"
+    }
+}

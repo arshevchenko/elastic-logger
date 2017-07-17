@@ -1,15 +1,17 @@
 FROM logstash:5.4.0-alpine
 
-WORKDIR /opt
-RUN apk add --no-cache curl grep
+USER root
+
+RUN apk add --no-cache curl python py-yaml py-jinja2
 RUN /usr/share/logstash/bin/logstash-plugin install logstash-filter-multiline
 
-RUN mkdir /scripts
+RUN mkdir /configs
+RUN mkdir /templates
 
-COPY ./scripts/ /scripts/
-COPY ./entrypoint.sh /
+COPY ./templates/ /templates/
+COPY ./config/ /configs/
+COPY ./entrypoint.py /
 
-RUN chmod -R +x /scripts
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.py
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.py"]
