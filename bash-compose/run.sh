@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 source "./stop.sh"
 docker run -d --name=elasticsearch \
            -p 9200:9200 -p 9300:9300 \
@@ -31,3 +30,10 @@ docker run -d --name=kibana-ui \
            -p $KIBANA_PORT:5601   \
            --link elasticsearch \
               kibana:5.4.3 
+
+echo "======================== WAIT ========================="
+while [[ ! $(docker ps | grep -q "logstash") ]]
+do
+    echo "Logstash still working. Please wait for end of parsing."
+    sleep 120
+done
