@@ -40,7 +40,7 @@ For personal configuration you can use file **propeties.yml**. Here described al
 |-----------------|----------|--------|-----------------------------
 | log\_file       | No       | regexp | Name of log file for parsing
 | log\_type       | No       | string | Type of log file
-| log\_stacktrace | Yes      | regexp | Patter for stacktrace in log file
+| log\_stacktrace | Yes      | regexp | Pattern for stacktrace in log file
 | grok\_pattern   | Yes      | string | Pattern for log string in grok
 | time\_pattern   | Yes      | string | Pattern for time. Depends on variable **times** in grok
 | add\_fields     | Yes      |  list  | List of additional fields for logstash
