@@ -36,7 +36,7 @@ For personal configuration you can use file **propeties.yml**. Here described al
 
 **Reference:**
 
-|    Parameter    | Optional |  Type  | Description 
+|     Property    | Optional |  Type  | Description 
 |-----------------|----------|--------|-----------------------------
 | log\_file       | No       | regexp | Name of log file for parsing
 | log\_type       | No       | string | Type of log file
@@ -46,6 +46,12 @@ For personal configuration you can use file **propeties.yml**. Here described al
 | add\_fields     | Yes      |  list  | List of additional fields for logstash
 | replace\_fields | Yes      |  list  | List of fields for replace
 
+Format of parameters in **add\_fields** and **replace_fields**:
+ Parameter |  Type  | Description
+-----------|--------|------------
+ type      | string | Has two types of values: string, in\_path - for searching value in path to log file with regular expression
+ key       | string | The name of field in logstash
+ value     | string or regexp | String for basic string and regexp for in\_path (see "type")
 
 
 
