@@ -47,6 +47,7 @@ For personal configuration you can use file **propeties.yml**. Here described al
 | replace\_fields | Yes      |  list  | List of fields for replace
 
 Format of parameters in **add\_fields** and **replace_fields**:
+
 | Parameter |       Type       | Description
 |-----------|------------------|---------------------------------------------------------------------------------------------------------------------------
 | type      |      string      | Has two types of values: string - basic string, in\_path - for searching value in path to log file with regular expression
