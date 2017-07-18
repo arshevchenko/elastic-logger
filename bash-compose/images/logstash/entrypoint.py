@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from time import sleep
-from subprocess import Popen, call, PIPE, STDOUT
+from subprocess import Popen, PIPE
 from os import walk, path, system
 from re import search
 
