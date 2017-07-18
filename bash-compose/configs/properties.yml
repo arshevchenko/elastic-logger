@@ -4,13 +4,13 @@
    grok_pattern: '\[%{DATA:times}\] %{LOGLEVEL:loglevel} %{GREEDYDATA:log_message}'
    time_pattern: 'yyyy-MM-dd HH:mm:ss,SSS'
    add_fields:
-     - type: in_path_group
+     - type: in_path
        key: 'data_center'
-       value: '\/(?!opt)([a-z]{3})\/' 
+       value: '[.]([a-z]{2,4})[.]'
    replace_fields:
      - type: in_path
        key: 'host'
-       value: 'p-niagara.*.pvt' 
+       value: '[ps]-niag.*pvt' 
 
  - log_file: 'worker-\d{4}.log'
    log_type: 'storm_worker'
@@ -18,16 +18,16 @@
    grok_pattern: '%{DATA:times} %{DATA:module} \[%{LOGLEVEL:log_level}\] %{GREEDYDATA:log_message}'
    time_pattern: 'ISO8601'
    add_fields:
-     - type: in_path_group
+     - type: in_path
        key: 'port'
        value: '-(\d{4}).'
-     - type: in_path_group
+     - type: in_path
        key: 'data_center'
-       value: '\/(?!opt)([a-z]{3})\/' 
+       value: '[.]([a-z]{2,4})[.]' 
    replace_fields:
      - type: in_path
        key: 'host'
-       value: 'p-niagara.*.pvt'
+       value: '[ps]-niag.*pvt'
  
  - log_file: 'worker-errors.log'
    log_type: 'storm_workers_errors'
@@ -35,11 +35,11 @@
    grok_pattern: 'worker-%{DATA:port} %{DATA:times} %{DATA:module} \[%{LOGLEVEL:loglevel}\] %{GREEDYDATA:log_message}'
    time_pattern: 'ISO8601'
    add_fields:
-    - type: in_path_group
+    - type: in_path
       key: 'data_center'
-      value: '\/(?!opt)([a-z]{3})\/'
+      value: '[.]([a-z]{2,4})[.]'
    replace_fields:
     - type: in_path 
       key: 'host'
-      value: 'p-niagara.*.pvt'
+      value: '[ps]-niag.*pvt'
  

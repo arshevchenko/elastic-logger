@@ -9,7 +9,6 @@ RUN mkdir /configs
 RUN mkdir /templates
 
 COPY ./templates/ /templates/
-COPY ./config/ /configs/
 COPY ./entrypoint.py /
 
 RUN chmod +x /entrypoint.py

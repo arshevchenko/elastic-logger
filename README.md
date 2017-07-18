@@ -3,7 +3,7 @@ Integral-logger
 This docker-compose solution intended for log collection on specific project.
 
 
-Usage
+Usage:
 -----
 **Automatically:**
 
@@ -28,3 +28,24 @@ For restarting containers use:
 For for viewing containers state:
 
     ./ps.sh
+
+Configuration:
+-----
+
+For personal configuration you can use file **propeties.yml**. Here described all log files for parsing.
+
+**Reference:**
+
+|    Parameter    | Optional |  Type  | Description 
+|-----------------|----------|--------|-----------------------------
+| log\_file       | No       | regexp | Name of log file for parsing
+| log\_type       | No       | string | Type of log file
+| log\_stacktrace | Yes      | regexp | Patter for stacktrace in log file
+| grok\_pattern   | Yes      | string | Pattern for log string in grok
+| time\_pattern   | Yes      | string | Pattern for time. Depends on variable **times** in grok
+| add\_fields     | Yes      |  list  | List of additional fields for logstash
+| replace\_fields | Yes      |  list  | List of fields for replace
+
+
+
+

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+source "./stop.sh"
 docker run -d --name=elasticsearch \
            -p 9200:9200 -p 9300:9300 \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \

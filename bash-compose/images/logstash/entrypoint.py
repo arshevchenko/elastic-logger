@@ -1,58 +1,68 @@
 #!/usr/bin/env python
 
-from os import walk, path, system, popen
+from time import sleep
+from subprocess import Popen, call, PIPE, STDOUT
+from os import walk, path, system
 from re import search
 
 from yaml import load
 from jinja2 import Environment, FileSystemLoader
 
+
+def check_elastic():
+    url = "elasticsearch:9200/_cat/health"
+    response = Popen(["curl", "-s", url], stdout=PIPE)
+    status = Popen(
+        ["grep", "-qE", "green|yellow"],
+        stdin=response.stdout)
+    return status.wait()
+
+
 def update_value(p, prop):
     for field in prop:
         if "in_path" in field["type"]:
-          res = search(field["value"], p)
-          if res is not None:
-            g = 1 if "group" in field["type"] else 0
-            field["value"] = res.group(g)
+            res = search(field["value"], p)
+            if res is not None:
+                field["value"] = res.group(len(res.groups()))
+            else:
+                prop.remove(field)
 
 
-resp = popen("curl -s elasticsearch:9200/_cat/health").read()
-while search("yellow|green", resp) is not None:
-    resp = popen("curl -s elasticsearch:9200/_cat/health").read()
-    print resp
+while check_elastic():
+    print "Waiting for elaticsearch container..."
+    sleep(20)
 
 properties = open("/configs/properties.yml", "r")
 properties = load(properties)
 
 env = Environment(
-            loader=FileSystemLoader("/"), 
-            trim_blocks=True
-        )
+    loader=FileSystemLoader("/"),
+    trim_blocks=True,
+    lstrip_blocks=True
+)
+
 template = env.get_template("templates/logstash.j2")
-
-
 
 for root, dirs, files in walk("/opt"):
     for f in files:
-        r = path.join(root, f)
-        for p in properties:
-            if search(p["log_file"], f) is not None:
-                update_value(r, p["add_fields"])
-                update_value(r, p["replace_fields"])
-                render = template.render(log_stacktrace = p["log_stacktrace"],
-                                grok_pattern = p["grok_pattern"],
-                                time_pattern = p["time_pattern"],
-                                add_fields = p["add_fields"],
-                                replace_fields = p["replace_fields"],
-                                log_type = p["log_type"])
-                config = "/configs/{}.conf".format(p["log_type"])
+        real_path = path.join(root, f)
+        tmp_props = properties
+        for prop in tmp_props:
+            if search(prop["log_file"], f):
+                if "add_fields" in prop:
+                    update_value(
+                        real_path,
+                        prop["add_fields"])
+                if "replace_fields" in prop:
+                    update_value(
+                        real_path,
+                        prop["replace_fields"])
+                render = template.render(tmp=prop)
+                config = "/configs/{}.conf".format(prop["log_type"])
                 result = open(config, "w")
                 result.write(render)
                 result.close()
-
-                system("logstash -f {} < {}".format(config, r))
+                system("logstash -f {} < {}".format(
+                    config,
+                    real_path))
                 system("rm -rf {}".format(config))
-
-
-                
-                                 
-
