@@ -34,13 +34,11 @@ while check_elastic():
 
 properties = open("/configs/properties.yml", "r")
 properties = load(properties)
-
 env = Environment(
     loader=FileSystemLoader("/"),
     trim_blocks=True,
     lstrip_blocks=True
 )
-
 template = env.get_template("templates/logstash.j2")
 
 for root, dirs, files in walk("/opt"):
@@ -52,11 +50,13 @@ for root, dirs, files in walk("/opt"):
                 if "add_fields" in prop:
                     update_value(
                         real_path,
-                        prop["add_fields"])
+                        prop["add_fields"]
+                    )
                 if "replace_fields" in prop:
                     update_value(
                         real_path,
-                        prop["replace_fields"])
+                        prop["replace_fields"]
+                    )
                 render = template.render(tmp=prop)
                 config = "/configs/{}.conf".format(prop["log_type"])
                 result = open(config, "w")
