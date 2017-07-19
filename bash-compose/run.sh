@@ -1,7 +1,7 @@
 #!/bin/bash
 source "./stop.sh"
 docker run -d --name=elasticsearch \
-           -v $2:/var/lib/elasticsearch/ \
+           -v $2:/usr/share/elasticsearch/data \
            -p 9200:9200 -p 9300:9300 \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
               elasticsearch:5.4.0-alpine
@@ -36,5 +36,5 @@ echo "======================== WAIT ========================="
 while [[ ! $(docker ps | grep -q "logstash") ]]
 do
     echo "Logstash still working. Please wait for end of parsing."
-    sleep 120
+    sleep 60
 done
