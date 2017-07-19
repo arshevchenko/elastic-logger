@@ -9,9 +9,9 @@ Usage:
 
 All of this script in **./bash-compose** directory
 
-Run **./run.sh** file with argument equal to your path to logs directory like this:
+Run **./run.sh** file with first argument equal to your path to logs directory and the second argument equal to path where would you like to store elasticsearch data:
 
-    ./run.sh ./logs
+    ./run.sh ./logs ./elastic-data
     
 This script will automatically search free port for KIBANA. Ports are in range from 8080 to 8090. If port found, in terminal will displays message like this:
 

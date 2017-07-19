@@ -1,6 +1,7 @@
 #!/bin/bash
 source "./stop.sh"
 docker run -d --name=elasticsearch \
+           -v $2:/var/lib/elasticsearch/ \
            -p 9200:9200 -p 9300:9300 \
            -e ES_JAVA_OPTS="-Xms1g -Xmx1g" \
               elasticsearch:5.4.0-alpine
