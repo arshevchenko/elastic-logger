@@ -7,8 +7,6 @@ Usage:
 -----
 **Automatically:**
 
-All of this script in **./bash-compose** directory
-
 Run **./run.sh** file with first argument equal to your path to logs directory and the second argument equal to path where would you like to store elasticsearch data:
 
     ./run.sh ./logs ./elastic-data
@@ -53,6 +51,3 @@ Format of parameters in **add\_fields** and **replace_fields**:
 | type      |      string      | Has two types of values: string - basic string, in\_path - for searching value in path to log file with regular expression
 | key       |      string      | The name of field in logstash
 | value     | string or regexp | String for basic string and regexp for in\_path (see "type")
-
-
-
