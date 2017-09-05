@@ -51,3 +51,13 @@ Format of parameters in **add\_fields** and **replace_fields**:
 | type      |      string      | Has two types of values: string - basic string, in\_path - for searching value in path to log file with regular expression
 | key       |      string      | The name of field in logstash
 | value     | string or regexp | String for basic string and regexp for in\_path (see "type")
+
+First launch:
+-----
+
+**Configuration:**
+
+When you first launch this stack you must configurate search parameters. We don't have specific parameters for searching, because entrypoint of logstash image making all work. We will use \* instead logtash-\*. After them you must uncheck field with indexes and push the button at bottom of page.
+
+**Search:**
+
